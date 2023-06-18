@@ -1,0 +1,24 @@
+SELECT name
+	,price
+	,dense_rank() OVER (
+		ORDER BY price DESC
+		) AS dense_rank_field
+FROM products
+
+SELECT name
+	,price
+	,rank() OVER (
+		ORDER BY price DESC
+		) AS rank_field
+FROM products
+
+SELECT *
+FROM (
+	SELECT name
+		,price
+		,dense_rank() OVER (
+			ORDER BY price DESC
+			) AS rank_field
+	FROM products
+	) r
+WHERE r.rank_field = 4
